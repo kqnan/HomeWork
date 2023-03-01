@@ -1,16 +1,16 @@
-# 这是一个示例 Python 脚本。
+import matplotlib.pyplot as plt
+import numpy as np
+import torch
 
-# 按 Shift+F10 执行或将其替换为您的代码。
-# 按 双击 Shift 在所有地方搜索类、文件、工具窗口、操作和设置。
-
-
-def print_hi(name):
-    # 在下面的代码行中使用断点来调试脚本。
-    print(f'Hi, {name}')  # 按 Ctrl+F8 切换断点。
-
-
-# 按间距中的绿色按钮以运行脚本。
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# 访问 https://www.jetbrains.com/help/pycharm/ 获取 PyCharm 帮助
+def f(x):
+    return np.sin(x)
+def get_derivative(x):
+    h=1e-4
+    return (f(x+h)-f(x))/h
+legend=['f(x)=sin(x)',"f'(x)=lim(f(x+h)-f(x))/h"]
+axis=plt.gca()
+X=np.arange(0,3,0.1)
+Y=f(X)
+axis.legend=legend
+axis.plot(X,Y)
+axis.plot(X,get_derivative(X))
