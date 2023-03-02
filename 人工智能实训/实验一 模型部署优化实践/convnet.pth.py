@@ -2,11 +2,14 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+from flask import Flask, request, json, render_template
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 
 import numpy as np
 from PIL import Image
+
+
 class ConvNet(nn.Module):
     def __init__(self):
         super(ConvNet, self).__init__()
@@ -31,5 +34,19 @@ class ConvNet(nn.Module):
         x = self.fc2(x)
         op = F.log_softmax(x, dim=1)
         return op
+
+
+def run_model(input_tensor):
+    model_input = input_tensor.unsqueeze(0)
+    with torch.no_grad():
+        model_output = model(model_input)[0]
+    model_prediction = model_output.detach().numpy().argmax()
+    return model_prediction
+
+
 model = ConvNet()
-model.load_state_dict(torch.load("./convnet.pth",map_location="cpu"))
+model.load_state_dict(torch.load("./convnet.pth", map_location="cpu"))
+model.eval()
+
+
+
