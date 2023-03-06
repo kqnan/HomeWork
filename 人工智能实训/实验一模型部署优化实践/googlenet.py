@@ -7,7 +7,7 @@ import streamlit as st
 import torch
 import torchvision.models.googlenet
 import torchvision.transforms as transforms
-from torchvision.models.inception import inception_v3
+
 from PIL import Image
 
 
