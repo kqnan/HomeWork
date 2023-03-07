@@ -94,17 +94,18 @@ def yolov5():
         file_bytes = BytesIO(file.read())
         st.markdown("### 原视频")
         st.video(file_bytes)
-        os.makedirs(root + "yolo_tmp/", exist_ok=True)
-        filepath = root + "yolo_tmp/" + file.name.title().lower()
-        outputpath = root + "yolo_tmp/output_" + file.name.title().lower()
-        with open(filepath, "wb") as f:
-            f.write(file_bytes.getbuffer())
+        with st.spinner("Y酱处理中..."):
+            os.makedirs(root + "yolo_tmp/", exist_ok=True)
+            filepath = root + "yolo_tmp/" + file.name.title().lower()
+            outputpath = root + "yolo_tmp/output_" + file.name.title().lower()
+            with open(filepath, "wb") as f:
+                f.write(file_bytes.getbuffer())
 
-        detect.run(source=filepath, project=project, name=outputpath)
-        tmp=str(file.name.title()).lower()
-        tmp=tmp.removesuffix(".mp4")+".webm"
-        outputfile=open(outputpath.replace('\\','/')+"/"+tmp,'rb').read()
-
+            detect.run(source=filepath, project=project, name=outputpath)
+            tmp=str(file.name.title()).lower()
+            tmp=tmp.removesuffix(".mp4")+".webm"
+            outputfile=open(outputpath.replace('\\','/')+"/"+tmp,'rb').read()
+        st.success("处理完毕！")
         st.video(outputfile)
         shutil.rmtree(outputpath)
         os.remove(filepath)
