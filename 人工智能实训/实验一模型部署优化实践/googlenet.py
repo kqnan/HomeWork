@@ -12,8 +12,8 @@ import torchvision.transforms as transforms
 from PIL import Image
 
 
-root="H:\大三下作业\人工智能实训\实验一模型部署优化实践\\"
-#root="/app/homework/人工智能实训/实验一模型部署优化实践/"
+#root="H:\大三下作业\人工智能实训\实验一模型部署优化实践\\"
+root="/app/homework/人工智能实训/实验一模型部署优化实践/"
 def googlenet():
     st.title("GoogleNet模型")
     file = st.file_uploader("上传图片(.jpg)", type=".jpg")
