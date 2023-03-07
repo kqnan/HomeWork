@@ -76,6 +76,7 @@ def yolov5():
         st.image(file)
 
         file_bytes=BytesIO(file.read())
+        os.mkdir(root+"yolo_tmp/")
         filepath=root+"yolo_tmp/"+file.name.title()
         outputpath=root+"yolo_tmp/output_"+file.name.title()
         with open(filepath,"wb") as f:
