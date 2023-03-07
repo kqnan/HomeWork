@@ -86,6 +86,7 @@ def yolov5():
         st.image(output_img)
         shutil.rmtree(outputpath)
         os.remove(filepath)
+    print(file.type)
 pages = {
     "GoogleNet（支持图片）": googlenet,
     "YOLOv5（支持图片和视频）": yolov5,
