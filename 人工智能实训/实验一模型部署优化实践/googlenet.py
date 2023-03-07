@@ -72,6 +72,7 @@ def yolov5():
     project=os.getcwd()
     st.title("YOLOv5")
     file = st.file_uploader("上传图片或视频")
+
     if file is not None and file.type.__contains__("image"):
         st.markdown("### 原图")
         st.image(file)
@@ -81,7 +82,9 @@ def yolov5():
         outputpath=root+"yolo_tmp/output_"+file.name.title()
         with open(filepath,"wb") as f:
             f.write(file_bytes.getbuffer())
-        detect.run(source=filepath,project=project,name=outputpath)
+
+        detect.run(source=filepath, project=project, name=outputpath)
+
         output_img=Image.open(outputpath+"/"+str(file.name.title()))
         st.markdown("### YOLOv5识别结果：")
         st.image(output_img)
@@ -96,8 +99,11 @@ def yolov5():
         outputpath = root + "yolo_tmp/output_" + file.name.title().lower()
         with open(filepath, "wb") as f:
             f.write(file_bytes.getbuffer())
+
         detect.run(source=filepath, project=project, name=outputpath)
-        outputfile=open(outputpath.replace('\\','/')+"/"+str(file.name.title()).lower(),'rb').read()
+        tmp=str(file.name.title()).lower()
+        tmp=tmp.removesuffix(".mp4")+".webm"
+        outputfile=open(outputpath.replace('\\','/')+"/"+tmp,'rb').read()
 
         st.video(outputfile)
         shutil.rmtree(outputpath)
