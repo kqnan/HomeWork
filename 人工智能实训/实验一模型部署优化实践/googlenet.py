@@ -71,10 +71,9 @@ def yolov5():
     project=os.getcwd()
     st.title("YOLOv5")
     file = st.file_uploader("上传图片或视频")
-    if file is not None:
+    if file is not None and file.type.__contains__("image"):
         st.markdown("### 原图")
         st.image(file)
-
         file_bytes=BytesIO(file.read())
         os.makedirs(root+"yolo_tmp/",exist_ok=True)
         filepath=root+"yolo_tmp/"+file.name.title()
