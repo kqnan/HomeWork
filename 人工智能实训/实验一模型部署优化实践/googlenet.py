@@ -93,8 +93,9 @@ pages = {
 if __name__ == "__main__":
     import sys
 
-    sys.path.append("yolov5-master")
+    sys.path.append(os.getcwd()+"/yolov5-master")
     import detect
+
 
     option = st.sidebar.selectbox('选择一个模型',['GoogleNet（支持图片）','YOLOv5（支持图片和视频）'])
     page=pages[option]
