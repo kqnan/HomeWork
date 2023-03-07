@@ -1,3 +1,2 @@
 libgl1
-libopenh264
-libx264
+libx264-dev
