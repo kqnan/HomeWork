@@ -71,7 +71,7 @@ def googlenet():
 def yolov5():
     project=os.getcwd()
     st.title("YOLOv5")
-    file = st.file_uploader("上传图片或视频")
+    file = st.file_uploader("上传图片或视频(仅支持.mp4)")
 
     if file is not None and file.type.__contains__("image"):
         st.markdown("### 原图")
