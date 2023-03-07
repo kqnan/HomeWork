@@ -3,6 +3,7 @@ import os
 import shutil
 from io import BytesIO
 
+
 import streamlit as st
 import torch
 import torchvision.models.googlenet
@@ -11,13 +12,13 @@ import torchvision.transforms as transforms
 from PIL import Image
 
 
-
-root="/app/homework/人工智能实训/实验一模型部署优化实践/"
+root="H:\大三下作业\人工智能实训\实验一模型部署优化实践\\"
+#root="/app/homework/人工智能实训/实验一模型部署优化实践/"
 def googlenet():
     st.title("GoogleNet模型")
     file = st.file_uploader("上传图片(.jpg)", type=".jpg")
     model = torchvision.models.googlenet(pretrained=True)
-    root="/app/homework/人工智能实训/实验一模型部署优化实践/"
+
     with open(root+'imagenet-labels.json', 'r') as f:
 
         data = json.load(f)  # labels = [line.strip() for line in f.readlines()]
@@ -86,14 +87,30 @@ def yolov5():
         st.image(output_img)
         shutil.rmtree(outputpath)
         os.remove(filepath)
-    print(file.type)
+    elif file is not None and file.type.__contains__("video"):
+        file_bytes = BytesIO(file.read())
+        st.markdown("### 原视频")
+        st.video(file_bytes)
+        os.makedirs(root + "yolo_tmp/", exist_ok=True)
+        filepath = root + "yolo_tmp/" + file.name.title().lower()
+        outputpath = root + "yolo_tmp/output_" + file.name.title().lower()
+        with open(filepath, "wb") as f:
+            f.write(file_bytes.getbuffer())
+        detect.run(source=filepath, project=project, name=outputpath)
+        outputfile=open(outputpath.replace('\\','/')+"/"+str(file.name.title()).lower(),'rb').read()
+
+        st.video(outputfile)
+        shutil.rmtree(outputpath)
+        os.remove(filepath)
+
 pages = {
     "GoogleNet（支持图片）": googlenet,
     "YOLOv5（支持图片和视频）": yolov5,
 }
+
+
 if __name__ == "__main__":
     import yolo.detect as detect
-
 
     option = st.sidebar.selectbox('选择一个模型',['GoogleNet（支持图片）','YOLOv5（支持图片和视频）'])
     page=pages[option]
