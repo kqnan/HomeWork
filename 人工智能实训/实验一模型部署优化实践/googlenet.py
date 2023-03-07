@@ -91,10 +91,7 @@ pages = {
     "YOLOv5（支持图片和视频）": yolov5,
 }
 if __name__ == "__main__":
-    import sys
-
-    sys.path.append(os.getcwd()+"/yolov5-master")
-    import detect
+    import yolo.detect as detect
 
 
     option = st.sidebar.selectbox('选择一个模型',['GoogleNet（支持图片）','YOLOv5（支持图片和视频）'])
