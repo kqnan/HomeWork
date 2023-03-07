@@ -12,13 +12,13 @@ from PIL import Image
 
 
 
-
+root="/app/homework/人工智能实训/实验一模型部署优化实践/"
 def googlenet():
     st.title("GoogleNet模型")
     file = st.file_uploader("上传图片(.jpg)", type=".jpg")
     model = torchvision.models.googlenet(pretrained=True)
-
-    with open('imagenet-labels.json', 'r') as f:
+    root="/app/homework/人工智能实训/实验一模型部署优化实践/"
+    with open(root+'imagenet-labels.json', 'r') as f:
 
         data = json.load(f)  # labels = [line.strip() for line in f.readlines()]
 
@@ -47,7 +47,7 @@ def googlenet():
         label,sortedtensor,indices =predict(img)
         import plotly.graph_objs as go
 
-        print(indices.tolist())
+
         # 柱状图的标签
         labels =[data[i] for i in indices.tolist()]
 
@@ -76,8 +76,8 @@ def yolov5():
         st.image(file)
 
         file_bytes=BytesIO(file.read())
-        filepath="yolo_tmp/"+file.name.title()
-        outputpath="yolo_tmp/output_"+file.name.title()
+        filepath=root+"yolo_tmp/"+file.name.title()
+        outputpath=root+"yolo_tmp/output_"+file.name.title()
         with open(filepath,"wb") as f:
             f.write(file_bytes.getbuffer())
         detect.run(source=filepath,project=project,name=outputpath)
